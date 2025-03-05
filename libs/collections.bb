@@ -86,7 +86,7 @@ os = new {
     transfer() = {
         src = file(from|str);
         dst = file(to|str);
-        default cheksum = "";
+        default checksum = "";
         checksum |= str;
         if(checksum|len|bool) {
             dsttext = do return dst|bb.os.read;
@@ -131,7 +131,7 @@ string = new {
             return ret;
         }
     }
-    
+
     // common string manipulation methods
     starts(str query) => new {
         assert len(args) == 0;
@@ -169,7 +169,7 @@ string = new {
             while(i in range(pos, nsearch-nquery+1)) {
                 different = do while(j in range(nquery)) if(query[j]!=search[i+j]) {return true;}
                 catch(different) return i;
-            } 
+            }
             return nsearch;//fail("Index not found");
         }
     }

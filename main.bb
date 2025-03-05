@@ -1,3 +1,12 @@
+!modify ".cache/"
+!modify "assets/"
+!access "https://raw.githubusercontent.com/maniospas/"
+
+!comptime do {
+    bb.os.transfer(from="https://raw.githubusercontent.com/maniospas/uibb/refs/heads/main/update.bb";to=".cache/ui-update.bb");
+    !include ".cache/ui-update"
+}
+
 !include "ui"
 
 final main_menu(dt) = {

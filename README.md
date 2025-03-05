@@ -10,8 +10,8 @@ To automate this, add the following to main file, that is, the file that you run
 Blombly's security does not allow setting permissions elsewhere.
 
 ```java
-!write "ext/"
-!read "https://raw.github.com/"
+!modify "ext/"
+!access "https://raw.github.com/"
 !comptime {
     engine = bb.file.read("todo");
     file""
