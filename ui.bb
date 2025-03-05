@@ -43,10 +43,10 @@ final autoscale = {
     y |= float;
     width |= float;
     height |= float;
-    if(x<1) x *= this.width;
-    if(y<1) y *= this.height;
-    if(width<1) width *= this.width;
-    if(height<1) height *= this.height;
+    if(x<=1) x *= this.width;
+    if(y<=1) y *= this.height;
+    if(width<=1) width *= this.width;
+    if(height<=1) height *= this.height;
 }
 
 Engine = {
@@ -80,9 +80,51 @@ Engine = {
         y |= float;
         if(abs(x)<1) x *= this.width;
         if(abs(y)<1) y *= this.height;
-        default angle = 0;
         default size = 16;
-        this.screen<<text,this.font,size,x,y,angle;
+        default lineheight = 1.2;
+        default width = this.width-x;
+        default show = true;
+        width += x;
+        //this.screen<<text,this.font,size,x,y,0;
+        draw_word = {
+            if(word=="#") linesize = size*2.6
+            else if(word=="##") linesize = size*2.2
+            else if(word=="###") linesize = size*1.8
+            else if(word=="####") linesize = size*1.4
+            else if(word=="[red]") this.color(128, 0, 0)
+            else if(word=="[green]") this.color(0, 128, 0)
+            else if(word=="[blue]") this.color(0, 0, 128)
+            else if(word=="[yellow]") this.color(128, 128, 0)
+            else if(word=="[black]") this.color(0, 0, 0)
+            else if(word=="[white]") this.color(255, 255, 255)
+            else if(word|len|bool) {
+                word_size = this.screen << word,this.font,linesize;
+                if(x+word_size>width) {
+                    x = leftalign;
+                    y += linesize*lineheight;
+                }
+                if(show) this.screen<<word,this.font,linesize,x,y,0;
+                x += word_size+(this.screen << " ",this.font,linesize);
+            }
+            word = "";
+        }
+        end_line = {
+            y += linesize*lineheight;
+            x = leftalign;
+            linesize = size;
+        }
+
+        leftalign = x;
+        word = "";
+        linesize = size;
+        while(c in text) {
+            if(c=="\n") {draw_word:end_line:}
+            else if(c==" ") {draw_word:}
+            else word += c;
+        }
+        draw_word:
+        y += linesize*lineheight;
+        return y;
     }
     button(x, y, width, height) = {
         autoscale:
@@ -100,11 +142,30 @@ Engine = {
         }
         this.texture(texture, x, y, width, height);
         if(text|len|bool) {
-            this.color(0, 0, 0);
+            this.color(255, 255, 255);
             // TODO: the offset below is an estimation for now
             this.text(text, x+width/2-(height*text|len/10), y+height/4 :: size=height/3);
         }
         return inside;
+    }
+    dialog(text) = {
+        default size = 22;
+        default question = false;
+        default width = 0.5;
+        default height = (this.text(text, 0, 0 :: size=size; show=false; width=width*this.width-size*2)+size)/this.height;
+        default close = {}
+        default x = (1-width)/2;
+        default y = (1-height)/2;
+        this.color(196, 196, 196 :: a=196);
+        this.rect(x, y, width, height);
+        this.color(0, 0, 0);
+        this.orect(x, y, width, height);
+        px = x*this.width+size;
+        py = y*this.height+5;
+        py = this.text(text, px, py :: size=size; width=width*this.width-size*2);
+
+        if(question) {}
+        else if(this.button(x+width-0.017, y+0.005, 0.015, this.width*0.015 :: texture="assets/close.png") and this.mouse.clicked) close:
     }
     start() = {
         invfps = 1/60;
