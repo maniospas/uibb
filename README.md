@@ -10,11 +10,13 @@ To automate this, add the following to main file, that is, the file that you run
 Blombly's security does not allow setting permissions elsewhere.
 
 ```java
-!modify "ext/"
-!access "https://raw.github.com/"
-!comptime {
-    engine = bb.file.read("todo");
-    file""
+!modify ".cache/"
+!modify "assets/"
+!access "https://raw.githubusercontent.com/maniospas/"
+
+!comptime do {
+    !comptime bb.os.transfer(from="https://raw.githubusercontent.com/maniospas/uibb/refs/heads/main/update.bb"; to=".cache/ui_update.bb");
+    !include ".cache/ui_update"
+    return;
 }
-!include "ext/ui-v1"
 ```
