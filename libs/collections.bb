@@ -91,13 +91,13 @@ os = new {
         if(checksum|len|bool) {
             dsttext = do return dst|bb.os.read;
             catch(dsttext) dsttext = "";
-            if((checksum=="*" and dsttext|len|bool) or checksum==dsttext["md5"]) return true;
+            if((checksum=="*" and dsttext|len|bool) or checksum==dsttext["md5"]) return;
         }
         bb.logger.info("downloading !{src}");
         text = src|bb.os.read;
         if(checksum|len|bool) if(checksum!="*" and checksum!=text["md5"]) fail("Mismatching checksum: !{src|str}");
         dst << text;
-        return true;
+        return;
     }
 }
 

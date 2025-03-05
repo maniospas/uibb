@@ -2,8 +2,8 @@
 !modify "assets/"
 !access "https://raw.githubusercontent.com/maniospas/"
 
-assert !comptime bb.os.transfer(from="https://raw.githubusercontent.com/maniospas/uibb/refs/heads/main/update.bb"; to=".cache/ui-update.bb"; checksum=="*");
-assert !comptime do {!include ".cache/ui-update" return true}
+!comptime bb.os.transfer(from="https://raw.githubusercontent.com/maniospas/uibb/refs/heads/main/update.bb"; to=".cache/ui-update.bb"; checksum="*");
+!comptime do {!include ".cache/ui-update" return}
 !include ".cache/ui-v1"
 
 final main_menu(dt) = {
