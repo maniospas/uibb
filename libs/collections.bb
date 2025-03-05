@@ -93,9 +93,10 @@ os = new {
             catch(dsttext) dsttext = "";
             if((checksum=="*" and dsttext|len|bool) or checksum==dsttext["md5"]) return;
         }
-        bb.logger.info("downloading !{src}");
         text = src|bb.os.read;
-        if(checksum|len|bool) if(checksum!="*" and checksum!=text["md5"]) fail("Mismatching checksum: !{src|str}");
+        target = text["md5"];
+        bb.logger.info("!{target} downloaded from: !{from}");
+        if(checksum|len|bool) if(checksum!="*" and checksum!=target) fail("A file with a different checksum already exists (consider deleting it): !{src|str}");
         dst << text;
         return;
     }

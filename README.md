@@ -6,7 +6,7 @@ This repository hosts a simple UI engine written in the Blombly programming lang
 ## Installation
 
 Download and import the file *ui.bb* and the accompanying *assets* directory.
-Alternatively, add the following automation to your main file being run.
+Alternatively, add the following automation to your main file.
 Blombly's security does not allow setting permissions elsewhere. The `checksum="*"`
 argument prevents overwritting existing files. Remove it to check for updates
 on every run.
@@ -16,6 +16,6 @@ on every run.
 !modify "assets/"
 !access "https://raw.githubusercontent.com/maniospas/"
 
-!comptime bb.os.transfer(from="https://raw.githubusercontent.com/maniospas/uibb/refs/heads/main/install.bb"; to=".cache/ui-install.bb"; checksum="*");
-!include ".cache/ui-install"
+!comptime bb.os.transfer(from="https://raw.githubusercontent.com/maniospas/uibb/refs/heads/main/ui.bb"; to=".cache/ui.bb"; checksum="*");
+!include ".cache/ui"
 ```
