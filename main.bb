@@ -2,8 +2,8 @@
 !modify "assets/"
 !access "https://raw.githubusercontent.com/maniospas/"
 
-!comptime bb.os.transfer(from="https://raw.githubusercontent.com/maniospas/uibb/refs/heads/main/integration.bb"; to=".cache/ui-integration-v1.bb"; checksum="*");
-!include ".cache/ui-integration-v1"
+!comptime bb.os.transfer(from="https://raw.githubusercontent.com/maniospas/uibb/refs/heads/main/install.bb"; to=".cache/ui-install.bb"; checksum="*");
+!include ".cache/ui-install"
 
 final main_menu(dt) = {
     if(this.about) {

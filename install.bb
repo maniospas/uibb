@@ -10,5 +10,3 @@
     bb.os.transfer(from="https://raw.githubusercontent.com/maniospas/uibb/refs/heads/main/assets/fonts/OFL.txt"; to="assets/fonts/OFL.txt"; checksum="*");
     return;
 }
-
-!include ".cache/ui-v1"

@@ -16,7 +16,6 @@ on every run.
 !modify "assets/"
 !access "https://raw.githubusercontent.com/maniospas/"
 
-!comptime bb.os.transfer(from="https://raw.githubusercontent.com/maniospas/uibb/refs/heads/main/update.bb"; to=".cache/ui-update.bb"; checksum="*");
-!include ".cache/ui-update"
-!include ".cache/ui-v1"
+!comptime bb.os.transfer(from="https://raw.githubusercontent.com/maniospas/uibb/refs/heads/main/install.bb"; to=".cache/ui-install.bb"; checksum="*");
+!include ".cache/ui-install"
 ```
