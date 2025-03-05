@@ -1,3 +1,6 @@
+!modify ".cache/"
+!modify "assets/"
+!access "https://raw.githubusercontent.com/maniospas/"
 !include "ui"
 
 final main_menu(dt) = {
