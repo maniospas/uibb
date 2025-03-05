@@ -1,3 +1,14 @@
+!modify "assets/"
+!access "https://raw.githubusercontent.com/maniospas/"
+!comptime do {
+    remote = "https://raw.githubusercontent.com/maniospas/uibb/refs/heads/main";
+    bb.os.transfer(from="!{remote}/assets/close.png";to="assets/close.png";checksum="e17a6fb1c763e690daf77763865aca0d");
+    bb.os.transfer(from="!{remote}/assets/button.png";to="assets/button.png";checksum="730ae6cb44cf0129f4c3b1db9b21411e");
+    bb.os.transfer(from="!{remote}/assets/fonts/OpenSans-VariableFont_wdth,wght.ttf"; to="assets/fonts/OpenSans-VariableFont_wdth,wght.ttf"; checksum="78609089d3dad36318ae0190321e6f3e");
+    bb.os.transfer(from="!{remote}/assets/fonts/OFL.txt"; to="assets/fonts/OFL.txt"; checksum="bd66774e373c2410c1e36ec832ba6630");
+    return;
+}
+
 final abs(x) = {
     if(x<0)return 0-x;
     return x;

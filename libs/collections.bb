@@ -96,7 +96,7 @@ os = new {
         text = src|bb.os.read;
         target = text["md5"];
         bb.logger.info("!{target} downloaded from: !{from}");
-        if(checksum|len|bool) if(checksum!="*" and checksum!=target) fail("A file with a different checksum already exists (consider deleting it): !{src|str}");
+        if(checksum|len|bool) if(checksum!="*" and checksum!=target) fail("The retreived checksum did not match the desired one: !{src|str}");
         dst << text;
         return;
     }
