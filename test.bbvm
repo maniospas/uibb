@@ -1,0 +1,16 @@
+%x=0 //test.bb line 1
+BUILTIN x I0
+%while(true){x+=1;} //test.bb line 2
+BEGIN _bb806
+%(true) //test.bb line 2
+BUILTIN _bb807 Btrue
+END
+BEGIN _bb808
+%x+=1 //test.bb line 3
+BUILTIN _bb809 I1
+add x x _bb809
+END
+%while(true){x+=1;} //test.bb line 2
+while # _bb806 _bb808
+%print(x) //test.bb line 5
+print # x
