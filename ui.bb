@@ -25,9 +25,9 @@
     remote = "https://raw.githubusercontent.com/maniospas/uibb/refs/heads/main/";
     hashes = map(
         ("assets/close.png",                                 "e17a6fb1c763e690daf77763865aca0d"),
-        ("assets/button.png",                                "730ae6cb44cf0129f4c3b1db9b21411e"),
-        ("assets/fonts/OpenSans-VariableFont_wdth,wght.ttf", "78609089d3dad36318ae0190321e6f3e"),
-        ("assets/fonts/OFL.txt",                             "bd66774e373c2410c1e36ec832ba6630")
+                 ("assets/button.png",                                "730ae6cb44cf0129f4c3b1db9b21411e"),
+                 ("assets/fonts/OpenSans-VariableFont_wdth,wght.ttf", "78609089d3dad36318ae0190321e6f3e"),
+                 ("assets/fonts/OFL.txt",                             "bd66774e373c2410c1e36ec832ba6630")
     );
     while(pair in hashes)bb.os.transfer(from="!{remote}!{pair[0]}";to=pair[0];checksum=pair[1]);
     return;
@@ -75,6 +75,14 @@ Engine = {
         default angle = 0;
         this.screen<<path,x,y,width,height,angle;
     }
+    stext(text, x, y) = {
+        if(abs(x)<1) x *= this.width;
+        if(abs(y)<1) y *= this.height;
+        default size = 16;
+        default center = false;
+        if(center) x -= (this.screen<<text,this.font,size)/2;
+        this.screen<<text,this.font,size,x,y,0;
+    }
     text(text, x, y) = {
         x |= float;
         y |= float;
@@ -88,25 +96,25 @@ Engine = {
         //this.screen<<text,this.font,size,x,y,0;
         draw_word = {
             if(word=="#") linesize = size*2.6
-            else if(word=="##") linesize = size*2.2
-            else if(word=="###") linesize = size*1.8
-            else if(word=="####") linesize = size*1.4
-            else if(word=="[red]") this.color(128, 0, 0)
-            else if(word=="[green]") this.color(0, 128, 0)
-            else if(word=="[blue]") this.color(0, 0, 128)
-            else if(word=="[yellow]") this.color(128, 128, 0)
-            else if(word=="[black]") this.color(0, 0, 0)
-            else if(word=="[white]") this.color(255, 255, 255)
-            else if(word|len|bool) {
-                word_size = this.screen << word,this.font,linesize;
-                if(x+word_size>width) {
-                    x = leftalign;
-                    y += linesize*lineheight;
-                }
-                if(show) this.screen<<word,this.font,linesize,x,y,0;
-                x += word_size+(this.screen << " ",this.font,linesize);
-            }
-            word = "";
+                else if(word=="##") linesize = size*2.2
+                    else if(word=="###") linesize = size*1.8
+                        else if(word=="####") linesize = size*1.4
+                            else if(word=="[red]") this.color(128, 0, 0)
+                                else if(word=="[green]") this.color(0, 128, 0)
+                                    else if(word=="[blue]") this.color(0, 0, 128)
+                                        else if(word=="[yellow]") this.color(128, 128, 0)
+                                            else if(word=="[black]") this.color(0, 0, 0)
+                                                else if(word=="[white]") this.color(255, 255, 255)
+                                                    else if(word|len|bool) {
+                                                        word_size = this.screen << word,this.font,linesize;
+                                                        if(x+word_size>width) {
+                                                            x = leftalign;
+                                                            y += linesize*lineheight;
+                                                        }
+                                                        if(show) this.screen<<word,this.font,linesize,x,y,0;
+                                                        x += word_size+(this.screen << " ",this.font,linesize);
+                                                    }
+                                                    word = "";
         }
         end_line = {
             y += linesize*lineheight;
@@ -144,7 +152,7 @@ Engine = {
         if(text|len|bool) {
             this.color(255, 255, 255);
             // TODO: the offset below is an estimation for now
-            this.text(text, x+width/2-(height*text|len/10), y+height/4 :: size=height/3);
+            this.stext(text, x+width/2, y+height/4 :: size=height/3; center=true);
         }
         return inside;
     }

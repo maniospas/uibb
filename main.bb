@@ -25,8 +25,8 @@
 !include "ui"
 
 final main_menu(dt) = {
-    this.color(255, 255, 255);
-    this.rect(0,0,1,1);
+    //this.color(255, 255, 255);
+    //this.rect(0,0,1,1);
     if(this.about) {
         this.dialog("[black] # About\nUI textures distributed under CC0 license. Credits: [blue] www.kenney.nl [black]\nThis is a second line\nThis is a third line"
         :: close={this.about=false}
