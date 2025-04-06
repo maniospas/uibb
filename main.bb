@@ -22,14 +22,39 @@
 !modify ".cache/"
 !modify "assets/"
 !access "https://raw.githubusercontent.com/maniospas/"
-!include "ui"
+
+!comptime bb.os.transfer(from="https://raw.githubusercontent.com/maniospas/uibb/refs/heads/main/ui.bb"; to=".cache/ui.bb"; checksum="*");
+!comptime do{if(bb.os.isfile("ui.bb")) bb.os.transfer(from="ui.bb"; to=".cache/ui.bb");return} // this is for development
+!include ".cache/ui"
 
 final main_menu(dt) = {
-    //this.color(255, 255, 255);
-    //this.rect(0,0,1,1);
+    this.color(255, 255, 255);
+    this.rect(0,0,1,1);
     if(this.about) {
-        this.dialog("[black] # About\nUI textures distributed under CC0 license. Credits: [blue] www.kenney.nl [black]\nThis is a second line\nThis is a third line"
-        :: close={this.about=false}
+        this.dialog("[black] # About"
+        +"\nThis is a demo UI meant to illustrate the engine's capabilities."
+        +"\n"
+        +"\n## Options"
+        +"\nTo change a state, change the engine's [yellow] update [black] function."
+        +"\nShowing buttons takes the form of: [yellow] if(this.button(position :: text=\"...\")) {action if clicked} [black]"
+        +"\nShow a dialog per: [yellow] this.dialog(\"...\" :: close={action if close button clicked}) [black]"
+        +"\nUsually, you would have a variable that checks whether the dialog is open"
+        +"\nFor other primitives, look at [blue] ui.bb [black]"
+        +"\n"
+        +"\n## Text format"
+        +"\nSimple styling hints are available as brackets with whitespaces before and after:"
+        +"\n- [green] [color] [black] [tab] [tab] sets the color from thereon. Available colors are red, green, blue, "
+        +"\n [tab] [tab] [tab] black,yellow, white."
+        +"\n- [green] [tab]$ [black] [tab] [tab] inserts a whitespace at the next multitude of 50 pixels."
+        +"\n- [green] [indent]$ [black] [tab] inserts a whitespace at the next multitude of 25 pixels."
+        +"\n- [green] [small]$ [black] [tab] [tab] makes subsequent text [small] smaller [normal] ."
+        +"\n- [green] [normal]$ [black] [tab] restores header or smaller text size."
+        +"\n- A number of #$ indicates a corresponding enlarged font size. One is the largest."
+        +"\n- Words ending at $$ have that last character stripped away."
+        +"\n"
+        +"\n## License"
+        +"\nUI textures are distributed under CC0 license. Credits: [blue] www.kenney.nl [black]"
+        :: close={this.about=false} shadow=5
         );
         this.focus_end();
     }
